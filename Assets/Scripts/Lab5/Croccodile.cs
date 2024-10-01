@@ -11,14 +11,14 @@ public class Croccodile : Enemy
     [SerializeField] private float bulletTimer;
     [SerializeField] private float waitTime;
     private int damageHit;
-    private Animator animator;
+    
 
 
     public void Start()
     {
         Init(50);
         waitTime = 0.0f;
-        bulletTimer = 5.0f;
+        bulletTimer = 8.0f;
         damageHit = 30;
         attackRange = 6;
         player = GameObject.FindObjectOfType<Player>();
@@ -53,7 +53,7 @@ public class Croccodile : Enemy
     {
         if (waitTime >= bulletTimer)
         {
-            animator.SetTrigger("Shoot");
+            anim.SetTrigger("Shoot");
             GameObject obj = Instantiate(bullet, bulletSpawnPoint.position, Quaternion.identity);
 
             waitTime = 0;
