@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class Croccodile : Enemy
 {
-    private float attackRange;
-    private Player player;
-    private float waitTime;
-    private float reloadTime;
+    [SerializeField] private float attackRange;
+    [SerializeField] private Player player;
+    [SerializeField] private GameObject bullet;
+    [SerializeField] private Transform bulletSpawnPoint;
+    [SerializeField] private float bulletTimer;
+    [SerializeField] private float waitTime;
     private int damageHit;
     private Animator animator;
 
@@ -16,27 +18,46 @@ public class Croccodile : Enemy
     {
         Init(50);
         waitTime = 0.0f;
-        reloadTime = 5.0f;
+        bulletTimer = 5.0f;
         damageHit = 30;
         attackRange = 6;
+        player = GameObject.FindObjectOfType<Player>();
         Debug.Log($"Croccodile HP = {Health}");
 
         Behavior();
     }
+        private void Update()
+        {
+        bulletTimer -= Time.deltaTime;
+        if (bulletTimer < 0)
+        {
+            bulletTimer = waitTime;
+        }
+
+        waitTime += Time.fixedDeltaTime;
+        Behavior();
+
+        }
     public override void Behavior()
     {
-        Vector2 distance = player.transform.position - transform.position;
-        if(distance.magnitude <= attackRange)
+        Vector2 direction = player.transform.position - transform.position;
+        float distance = direction.magnitude;
+        if(distance < attackRange)
         {
             Shoot();
+            Debug.Log("Shoot");
         }
     }
+
     void Shoot()
     {
-        if (waitTime >= reloadTime)
+        if (waitTime >= bulletTimer)
         {
-            animator;
+            animator.SetTrigger("Shoot");
+            GameObject obj = Instantiate(bullet, bulletSpawnPoint.position, Quaternion.identity);
+
+            waitTime = 0;
         }
     }
-   
+
 }

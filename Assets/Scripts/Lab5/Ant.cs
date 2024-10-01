@@ -22,7 +22,9 @@ public class Ant : Enemy
 
         private void FixedUpdate()
         {
+
         Behavior();
+
         }
         
 
