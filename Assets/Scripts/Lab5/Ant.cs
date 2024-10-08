@@ -15,7 +15,7 @@ public class Ant : Enemy
         rb = GetComponent<Rigidbody2D>();
 
         Init(15);   
-        Debug.Log($"ant = {Health}");
+        Debug.Log($"ant HP = {Health}");
 
         Behavior();
         }

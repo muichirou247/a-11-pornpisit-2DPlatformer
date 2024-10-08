@@ -8,7 +8,7 @@ public class Player : Character
     {
         
     }
-    public void OnHitWith() 
+    public void OnHitWith()
     {
         
     }
