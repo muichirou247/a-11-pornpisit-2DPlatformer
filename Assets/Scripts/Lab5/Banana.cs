@@ -16,7 +16,7 @@ public class Banana : Weapons
                
     } 
     public override void Move()
-    {
+    {   
         Debug.Log("Banana เคลื่อนที่ด้วย Transform ด้วยความเร็วคงที่");
     }
 

@@ -2,44 +2,50 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Croccodile : Enemy
+public class Croccodile : Enemy, IShootable
 {
-    [SerializeField] private float attackRange;
-    [SerializeField] private Player player;
-    [SerializeField] private GameObject bullet;
-    [SerializeField] private Transform bulletSpawnPoint;
-    [SerializeField] private float bulletTimer;
-    [SerializeField] private float waitTime;
-    private int damageHit;
+     float attackRange;
+     public float AttackRange { get { return attackRange; } set { attackRange = value; } }
+     [SerializeField] private Player player;
+     [field: SerializeField]
+     GameObject bullet;
+     public GameObject Bullet {  get { return bullet; } set {  bullet = value; } }
+    
+     [field: SerializeField]
+     Transform bulletSpawnPoint;
+     public Transform BulletSpawnPoint { get { return bulletSpawnPoint; } set { bulletSpawnPoint = value; } }
+     public float ReloadTime {  get; set; }
+     public float WaitTime {  get; set; }
+     private int damageHit;
     
 
 
     public void Start()
     {
         Init(50);
-        waitTime = 0.0f;
-        bulletTimer = 8.0f;
-        damageHit = 30;
+        WaitTime = 0.0f;
+        ReloadTime = 4.0f;
+        damageHit = 10;
         attackRange = 6;
         player = GameObject.FindObjectOfType<Player>();
         Debug.Log($"Croccodile HP = {Health}");
 
         Behavior();
     }
-        private void Update()
+        void FixedUpdate()
         {
-        bulletTimer -= Time.deltaTime;
-        if (bulletTimer < 0)
+        ReloadTime -= Time.deltaTime;
+        if (ReloadTime < 0)
         {
-            bulletTimer = waitTime;
+            ReloadTime = WaitTime;
         }
 
-        waitTime += Time.fixedDeltaTime;
+        WaitTime += Time.fixedDeltaTime;
         Behavior();
 
         }
-    public override void Behavior()
-    {
+        public override void Behavior()
+        {
         Vector2 direction = player.transform.position - transform.position;
         float distance = direction.magnitude;
         if(distance < attackRange)
@@ -47,17 +53,17 @@ public class Croccodile : Enemy
             Shoot();
             Debug.Log("Shoot");
         }
-    }
+        }
 
-    void Shoot()
-    {
-        if (waitTime >= bulletTimer)
+        public void Shoot()
+        {
+        if (WaitTime >= ReloadTime)
         {
             anim.SetTrigger("Shoot");
             GameObject obj = Instantiate(bullet, bulletSpawnPoint.position, Quaternion.identity);
 
-            waitTime = 0;
+            WaitTime = 0;
         }
-    }
+        }
 
 }
