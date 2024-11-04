@@ -31,7 +31,7 @@ public class Player : Character,IShootable
         }
     public void Shoot()
     {
-        if (Input.GetButtonDown("Fire1") && WaitTime >= ReloadTime) ;
+        if (Input.GetButtonDown("Fire1") && WaitTime >= ReloadTime)
         {
             GameObject obj = Instantiate(bullet, bulletSpawnPoint.position, Quaternion.identity);   
         }
