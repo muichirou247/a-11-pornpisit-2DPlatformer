@@ -24,7 +24,7 @@ public class Croccodile : Enemy, IShootable
     {
         Init(50);
         WaitTime = 0.0f;
-        ReloadTime = 4.0f;
+        ReloadTime = 3.0f;
         damageHit = 10;
         attackRange = 6;
         player = GameObject.FindObjectOfType<Player>();
@@ -33,12 +33,7 @@ public class Croccodile : Enemy, IShootable
         Behavior();
     }
         void FixedUpdate()
-        {
-        ReloadTime -= Time.deltaTime;
-        if (ReloadTime < 0)
-        {
-            ReloadTime = WaitTime;
-        }
+    {
 
         WaitTime += Time.fixedDeltaTime;
         Behavior();
@@ -50,8 +45,7 @@ public class Croccodile : Enemy, IShootable
         float distance = direction.magnitude;
         if(distance < attackRange)
         {
-            Shoot();
-            Debug.Log("Shoot");
+            Shoot();          
         }
         }
 
@@ -61,7 +55,10 @@ public class Croccodile : Enemy, IShootable
         {
             anim.SetTrigger("Shoot");
             GameObject obj = Instantiate(bullet, bulletSpawnPoint.position, Quaternion.identity);
+            Rock rockObj = obj.GetComponent<Rock>();
 
+            rockObj.Init(30, this);
+           
             WaitTime = 0;
         }
         }

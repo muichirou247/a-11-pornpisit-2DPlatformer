@@ -9,16 +9,23 @@ public class Rock : Weapons
 
     public void Start()
     {
-        Damage = 40;
+        Init(30, shooter);
+        
+        force = new Vector2 (GetShootDirection() * 80,  400);
         Move();
     }
     public override void Move()
     {
-        Debug.Log("Rock เคลื่อนที่ด้วย RigidBody: force");
+        rb2d.AddForce (force, ForceMode.Impulse);
     }
 
     public override void OnHitWith(Character character)
     {
+        if (character is Player)
+        {
+            character.TakeDamage(this.Damage);
+            Debug.Log("---------30");
+        }
 
     }
 }

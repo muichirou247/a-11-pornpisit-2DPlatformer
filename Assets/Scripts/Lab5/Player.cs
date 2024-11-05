@@ -23,22 +23,45 @@ public class Player : Character,IShootable
         ReloadTime = 1.0f;
     }
 
-        void Update()
+        void FixedUpdate()
         {
 
-        Shoot();
+            WaitTime += Time.fixedDeltaTime;
+
+            
         
         }
+    private void Update()
+    {
+        Shoot();
+    }
     public void Shoot()
     {
         if (Input.GetButtonDown("Fire1") && WaitTime >= ReloadTime)
         {
-            GameObject obj = Instantiate(bullet, bulletSpawnPoint.position, Quaternion.identity);   
+            Debug.Log("Shoot");
+            GameObject obj = Instantiate(bullet, bulletSpawnPoint.position, Quaternion.identity);
+            Banana banana = obj.GetComponent<Banana>();
+            banana.Init(20, this);
+            WaitTime = 0;
+        }
+
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+        if (enemy != null)
+        {
+            OnHitWith(enemy);
         }
     }
-    public void OnHitWith()
+
+    public void OnHitWith(Enemy enemy)
     {
-        
+        TakeDamage(enemy.DamageHit);
     }
+
+      
 
 }

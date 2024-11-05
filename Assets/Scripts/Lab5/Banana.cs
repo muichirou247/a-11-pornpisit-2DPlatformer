@@ -10,18 +10,32 @@ public class Banana : Weapons
 
     public void Start()
     {
-        Damage = 30;
-        speed = 4f;
-        Move();
+        Damage = 20;
+        speed = 2.0f * GetShootDirection();
+        
                
-    } 
+    }
+
+    void Update()
+    {
+        Move();
+    }
+
+
     public override void Move()
     {   
-        Debug.Log("Banana เคลื่อนที่ด้วย Transform ด้วยความเร็วคงที่");
+        float newX = transform.position.x + speed * Time.fixedDeltaTime;
+        float newY = transform.position.y;
+        Vector2 newPosition = new Vector2(newX, newY);
+        transform.position = newPosition;
     }
 
     public override void OnHitWith(Character character)
     {
-        
+        if (character is Enemy)
+        {
+            character.TakeDamage(this.Damage);
+            Debug.Log("---------20");
+        }
     }
 }

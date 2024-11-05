@@ -7,13 +7,12 @@ public class HealthManage : MonoBehaviour
 {
     [SerializeField] private Image healthBar;
     [SerializeField] private float healthAmount = 100f;
-    [SerializeField] private Camera camera;
-    [SerializeField] private Transform target;
+ 
 
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Y))
         {
             TakeDamage(10);
         }
@@ -23,8 +22,7 @@ public class HealthManage : MonoBehaviour
             Heal(5);
         }
 
-        transform.position = camera.transform.position;
-        transform.position = target.position;
+        
     }
 
     public void TakeDamage(float damage)
