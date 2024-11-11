@@ -10,10 +10,9 @@ public class Banana : Weapons
 
     public void Start()
     {
-        Damage = 20;
+        Damage = 10;
         speed = 2.0f * GetShootDirection();
-        
-               
+                       
     }
 
     void Update()
@@ -35,7 +34,7 @@ public class Banana : Weapons
         if (character is Enemy)
         {
             character.TakeDamage(this.Damage);
-            Debug.Log("---------20");
+            
         }
     }
 }

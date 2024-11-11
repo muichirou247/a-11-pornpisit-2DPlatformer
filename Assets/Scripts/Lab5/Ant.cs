@@ -14,8 +14,10 @@ public class Ant : Enemy
     {
         rb = GetComponent<Rigidbody2D>();
 
-        Init(15);   
+        Init(40);   
         Debug.Log($"ant HP = {Health}");
+
+        DamageHit = 10;
 
         Behavior();
         }

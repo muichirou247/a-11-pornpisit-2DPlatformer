@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Rock : Weapons
@@ -23,8 +24,9 @@ public class Rock : Weapons
     {
         if (character is Player)
         {
+
             character.TakeDamage(this.Damage);
-            Debug.Log("---------30");
+                        
         }
 
     }

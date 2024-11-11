@@ -22,7 +22,7 @@ public class Croccodile : Enemy, IShootable
 
     public void Start()
     {
-        Init(50);
+        Init(100);
         WaitTime = 0.0f;
         ReloadTime = 3.0f;
         damageHit = 10;

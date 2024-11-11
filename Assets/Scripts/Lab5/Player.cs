@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Player : Character,IShootable
 {
     [field: SerializeField]
@@ -38,11 +39,10 @@ public class Player : Character,IShootable
     public void Shoot()
     {
         if (Input.GetButtonDown("Fire1") && WaitTime >= ReloadTime)
-        {
-            Debug.Log("Shoot");
+        {           
             GameObject obj = Instantiate(bullet, bulletSpawnPoint.position, Quaternion.identity);
             Banana banana = obj.GetComponent<Banana>();
-            banana.Init(20, this);
+            banana.Init(10, this);
             WaitTime = 0;
         }
 
@@ -60,8 +60,9 @@ public class Player : Character,IShootable
     public void OnHitWith(Enemy enemy)
     {
         TakeDamage(enemy.DamageHit);
+        
     }
 
-      
+     
 
 }
